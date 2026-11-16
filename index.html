@@ -1,21 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Learn Coptic</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Coptic&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 16px; }
-    .coptic { font-family: 'Noto Sans Coptic', sans-serif; font-size: 2rem; }
-    .card { border: 1px solid #ccc; border-radius: 8px; padding: 12px; margin: 8px 0; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn Coptic</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Coptic&display=swap" rel="stylesheet">
+<style>
+  body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 16px; }
+  .coptic { font-family: 'Noto Sans Coptic', sans-serif; }
+  nav { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0; }
+  nav button, .tools button { padding: 8px 12px; border: 1px solid #999; border-radius: 8px; background: #f5f5f5; font-size: 1rem; }
+  nav button.active { background: #333; color: #fff; }
+  .card { display: flex; gap: 14px; align-items: center; border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 8px 0; }
+  .letter { font-size: 2.2rem; min-width: 90px; text-align: center; }
+  .info b { font-size: 1.05rem; }
+  .info small { color: #666; display: block; }
+  .hidden .info { visibility: hidden; }
+  .note { background: #fff8e1; border-radius: 8px; padding: 10px; margin: 10px 0; font-size: .95rem; }
+</style>
 </head>
 <body>
-  <h1>Learn Coptic</h1>
-  <h2>Lesson 1: Letters</h2>
-  <div class="card"><span class="coptic">Ⲁ ⲁ</span> Alpha, sounds like "a"</div>
-  <div class="card"><span class="coptic">Ⲃ ⲃ</span> Vida, sounds like "v"</div>
-  <div class="card"><span class="coptic">Ⲅ ⲅ</span> Gamma, sounds like "g"</div>
+<h1>Learn Coptic</h1>
+<h2>Alphabet</h2>
+<nav id="nav"></nav>
+<div class="tools"><button id="toggle">Cover names</button></div>
+<div class="note" id="note"></div>
+<div id="cards"></div>
+
+<script>
+const lessons = [
+  { title: "Lesson 1", note: "The first 8 letters. Many look like Greek letters.",
+    letters: [
+      ["Ⲁ ⲁ", "Alpha", "a", "like 'a' in father"],
+      ["Ⲃ ⲃ", "Vita", "v", "like 'v' in van"],
+      ["Ⲅ ⲅ", "Gamma", "g", "like 'g' in go"],
+      ["Ⲇ ⲇ", "Dalda", "d", "like 'd' in dog"],
+      ["Ⲉ ⲉ", "Ei", "e", "like 'e' in met"],
+      ["Ⲍ ⲍ", "Zeta", "z", "like 'z' in zoo (ز)"],
+      ["Ⲏ ⲏ", "Eta", "ee", "long 'ee', like 'ee' in see"],
+      ["Ⲑ ⲑ", "Theta", "th", "like 'th' in think (ث)"]
+    ] },
+  { title: "Lesson 2", note: "Letters 9 to 16.",
+    letters: [
+      ["Ⲓ ⲓ", "Iota", "i", "like 'ee' in see"],
+      ["Ⲕ ⲕ", "Kappa", "k", "like 'k' in kite"],
+      ["Ⲗ ⲗ", "Lola", "l", "like 'l' in lamp"],
+      ["Ⲙ ⲙ", "Mi", "m", "like 'm' in map"],
+      ["Ⲛ ⲛ", "Ni", "n", "like 'n' in net"],
+      ["Ⲝ ⲝ", "Exi", "ks", "like 'x' in box (كس)"],
+      ["Ⲟ ⲟ", "O", "o", "like 'o' in more"],
+      ["Ⲡ ⲡ", "Pi", "p", "like 'p' in pen"]
+    ] },
+  { title: "Lesson 3", note: "Letters 17 to 24, the last of the Greek-based letters.",
+    letters: [
+      ["Ⲣ ⲣ", "Ro", "r", "rolled 'r'"],
+      ["Ⲥ ⲥ", "Sima", "s", "like 's' in sun"],
+      ["Ⲧ ⲧ", "Tau", "t", "like 't' in top"],
+      ["Ⲩ ⲩ", "Ue", "ee / u", "usually 'ee' or 'u'"],
+      ["Ⲫ ⲫ", "Fi", "f / ph", "like 'f' in fan (ف)"],
+      ["Ⲭ ⲭ", "Khi", "kh", "like Arabic خ"],
+      ["Ⲯ ⲯ", "Epsi", "ps", "like 'ps' in lapse"],
+      ["Ⲱ ⲱ", "Omega", "o", "long 'o', like Ⲟ"]
+    ] },
+  { title: "Lesson 4", note: "The 7 extra letters that Coptic added for sounds Greek didn't have.",
+    letters: [
+      ["Ϣ ϣ", "Shai", "sh", "like 'sh' in ship (ش)"],
+      ["Ϥ ϥ", "Fai", "f", "like 'f' in fan (ف)"],
+      ["Ϧ ϧ", "Khai", "kh", "like Arabic خ"],
+      ["Ϩ ϩ", "Hori", "h", "soft 'h' (هـ)"],
+      ["Ϫ ϫ", "Janja", "j", "like 'j' in jam"],
+      ["Ϭ ϭ", "Chima", "ch / k", "like 'ch' in chair"],
+      ["Ϯ ϯ", "Ti", "ti", "the syllable 'ti'"]
+    ] }
+];
+
+const nav = document.getElementById("nav");
+const cards = document.getElementById("cards");
+const note = document.getElementById("note");
+const toggle = document.getElementById("toggle");
+let current = 0, covered = false;
+
+function show(i) {
+  current = i;
+  nav.innerHTML = "";
+  lessons.forEach((l, idx) => {
+    const b = document.createElement("button");
+    b.textContent = l.title;
+    if (idx === i) b.className = "active";
+    b.onclick = () => show(idx);
+    nav.appendChild(b);
+  });
+  note.textContent = lessons[i].note;
+  cards.innerHTML = "";
+  lessons[i].letters.forEach(([glyph, name, sound, hint]) => {
+    const d = document.createElement("div");
+    d.className = "card" + (covered ? " hidden" : "");
+    d.innerHTML = '<div class="letter coptic">' + glyph + '</div>' +
+      '<div class="info"><b>' + name + '</b> (' + sound + ')<small>' + hint + '</small></div>';
+    d.onclick = () => d.classList.toggle("hidden");
+    cards.appendChild(d);
+  });
+}
+
+toggle.onclick = () => {
+  covered = !covered;
+  toggle.textContent = covered ? "Show names" : "Cover names";
+  show(current);
+};
+
+show(0);
+</script>
 </body>
 </html>
