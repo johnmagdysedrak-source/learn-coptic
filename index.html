@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learn Coptic</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Coptic&display=swap" rel="stylesheet">
 <style>
+  @font-face { font-family: 'Avva'; src: url('CS-Avva-Shenouda.ttf') format('truetype'); font-display: swap; }
   body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 16px; }
-  .coptic { font-family: 'Noto Sans Coptic', sans-serif; }
+  .avva { font-family: 'Avva', serif; }
   nav { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0; }
   nav button, .tools button { padding: 8px 12px; border: 1px solid #999; border-radius: 8px; background: #f5f5f5; font-size: 1rem; }
   nav button.active { background: #333; color: #fff; }
   .card { display: flex; gap: 14px; align-items: center; border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 8px 0; }
-  .letter { font-size: 2.2rem; min-width: 90px; text-align: center; }
+  .letter { font-size: 2.4rem; min-width: 90px; text-align: center; }
   .info b { font-size: 1.05rem; }
   .info small { color: #666; display: block; }
   .hidden .info { visibility: hidden; }
@@ -28,6 +28,20 @@
 <div id="cards"></div>
 
 <script>
+const MAP = {
+  "Ⲁ":"A","ⲁ":"a","Ⲃ":"B","ⲃ":"b","Ⲅ":"G","ⲅ":"g","Ⲇ":"D","ⲇ":"d",
+  "Ⲉ":"E","ⲉ":"e","Ⲍ":"Z","ⲍ":"z","Ⲏ":"Y","ⲏ":"y","Ⲑ":":","ⲑ":";",
+  "Ⲓ":"I","ⲓ":"i","Ⲕ":"K","ⲕ":"k","Ⲗ":"L","ⲗ":"l","Ⲙ":"M","ⲙ":"m",
+  "Ⲛ":"N","ⲛ":"n","Ⲝ":"X","ⲝ":"x","Ⲟ":"O","ⲟ":"o","Ⲡ":"P","ⲡ":"p",
+  "Ⲣ":"R","ⲣ":"r","Ⲥ":"C","ⲥ":"c","Ⲧ":"T","ⲧ":"t","Ⲩ":"U","ⲩ":"u",
+  "Ⲫ":"V","ⲫ":"v","Ⲭ":"<","ⲭ":",","Ⲯ":"\"","ⲯ":"'","Ⲱ":"W","ⲱ":"w",
+  "Ϣ":"S","ϣ":"s","Ϥ":"F","ϥ":"f","Ϧ":"Q","ϧ":"q","Ϩ":"H","ϩ":"h",
+  "Ϫ":"J","ϫ":"j","Ϭ":"[","ϭ":"{","Ϯ":"]","ϯ":"}"
+};
+function toAvva(text) {
+  return Array.from(text).map(ch => MAP[ch] || ch).join("");
+}
+
 const lessons = [
   { title: "Lesson 1", note: "The first 8 letters. Many look like Greek letters.",
     letters: [
@@ -95,7 +109,7 @@ function show(i) {
   lessons[i].letters.forEach(([glyph, name, sound, hint]) => {
     const d = document.createElement("div");
     d.className = "card" + (covered ? " hidden" : "");
-    d.innerHTML = '<div class="letter coptic">' + glyph + '</div>' +
+    d.innerHTML = '<div class="letter avva">' + toAvva(glyph) + '</div>' +
       '<div class="info"><b>' + name + '</b> (' + sound + ')<small>' + hint + '</small></div>';
     d.onclick = () => d.classList.toggle("hidden");
     cards.appendChild(d);
