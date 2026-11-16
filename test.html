@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Font test</title>
+<style>
+  @font-face { font-family: 'Avva'; src: url('CS-Avva-Shenouda.ttf') format('truetype'); }
+  body { font-family: sans-serif; padding: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .cell { border: 1px solid #ccc; border-radius: 6px; text-align: center; padding: 6px; }
+  .key { font-size: 1.2rem; }
+  .glyph { font-family: 'Avva'; font-size: 2rem; }
+</style>
+</head>
+<body>
+<h3>Key → how the font shows it</h3>
+<div class="grid" id="g"></div>
+<script>
+const g = document.getElementById("g");
+for (let c = 33; c <= 126; c++) {
+  const ch = String.fromCharCode(c);
+  const d = document.createElement("div");
+  d.className = "cell";
+  const k = document.createElement("div");
+  k.className = "key";
+  k.textContent = ch;
+  const o = document.createElement("div");
+  o.className = "glyph";
+  o.textContent = ch;
+  d.appendChild(k);
+  d.appendChild(o);
+  g.appendChild(d);
+}
+</script>
+</body>
+</html>
