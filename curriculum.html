@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Curriculum</title>
+<link rel="stylesheet" href="style.css">
+<script src="common.js"></script>
+<script src="curriculum-data.js"></script>
+</head>
+<body>
+<a href="index.html">← Home</a>
+<h1>Curriculum</h1>
+<div id="nav"></div>
+<div id="lesson"></div>
+<script>
+const nav = document.getElementById("nav");
+const box = document.getElementById("lesson");
+
+function render() {
+  let i = (parseInt(location.hash.slice(1)) || 1) - 1;
+  if (i < 0 || i >= CURRICULUM.length) i = 0;
+  const les = CURRICULUM[i];
+  nav.innerHTML = CURRICULUM.map((l, k) =>
+    '<a class="pill ' + (k === i ? "active" : "") + '" href="#' + (k + 1) + '">' + (k + 1) + '</a>').join("");
+
+  let h = "<h2>" + les.title + "</h2><div>" + les.content + "</div><h3>Exercises</h3><p id='score'></p>";
+  les.exercises.forEach((e, n) => {
+    h += '<div class="ex" data-n="' + n + '"><p>' + (n + 1) + ". " + e.q + "</p>";
+    if (e.type === "mc") {
+      e.options.forEach((o, k) => { h += '<button class="opt" data-k="' + k + '">' + o + "</button>"; });
+    } else {
+      h += '<input class="ans" placeholder="Your answer"><button class="chk">Check</button>';
+    }
+    h += '<p class="fb"></p></div>';
+  });
+  if (i < CURRICULUM.length - 1) h += '<p><a class="pill" href="#' + (i + 2) + '">Next lesson →</a></p>';
+  box.innerHTML = h;
+  applyCop(box);
+
+  let right = 0, answered = 0;
+  const total = les.exercises.length;
+  const score = document.getElementById("score");
+  score.textContent = "Score: 0 / " + total;
+
+  box.querySelectorAll(".ex").forEach(div => {
+    const e = les.exercises[div.dataset.n];
+    const fb = div.querySelector(".fb");
+    function finish(ok) {
+      if (div.dataset.done) return;
+      div.dataset.done = 1;
+      answered++;
+      if (ok) right++;
+      fb.textContent = ok ? "✅ Correct" : "❌ " + (e.explain || "Not quite.");
+      score.textContent = "Score: " + right + " / " + total + (answered === total ? " (done)" : "");
+    }
+    if (e.type === "mc") {
+      const btns = div.querySelectorAll(".opt");
+      btns.forEach(b => b.onclick = () => {
+        if (div.dataset.done) return;
+        const k = +b.dataset.k;
+        btns[e.answer].classList.add("good");
+        if (k !== e.answer) b.classList.add("bad");
+        finish(k === e.answer);
+      });
+    } else {
+      div.querySelector(".chk").onclick = () => {
+        const v = div.querySelector(".ans").value.trim().toLowerCase();
+        finish(e.answer.some(a => a.toLowerCase() === v));
+      };
+    }
+  });
+}
+window.onhashchange = render;
+render();
+</script>
+</body>
+</html>
