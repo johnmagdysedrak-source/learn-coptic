@@ -1,20 +1,20 @@
 const W2 = [
-  { full: "Ⲉⲑⲟⲩⲁⲃ", gap: "Ⲉⲑ....ⲁⲃ", miss: "ⲟⲩ", wrong: ["ⲉⲩ", "ⲟⲓ"],
-    abbr: '<span class="cop ov">ⲉⲑⲩ</span>', mean: "القدوس" },
-  { full: "Ⲫⲛⲟⲩϯ", gap: "Ⲫⲛⲟⲩ....", miss: "ϯ", wrong: ["ⲧ", "ⲓ"],
-    abbr: '<span class="cop ov">Ⲫϯ</span>', mean: "الله" },
-  { full: "Ⲡⲛⲉⲩⲙⲁ", gap: "Ⲡⲛ....ⲙⲁ", miss: "ⲉⲩ", wrong: ["ⲟⲩ", "ⲉⲓ"],
-    abbr: '<span class="cop">Ⲡ</span><span class="cop ov">ⲛⲁ</span>', mean: "روح" },
-  { full: "Ⲁⲗⲗⲏⲗⲟⲩⲓⲁ",
-    abbr: '<span class="cop ov">Ⲁⲗ</span>', mean: "هلليلويا" },
-  { full: "Ⲓⲏⲥⲟⲩⲥ", gap: "Ⲓⲏⲥⲟ....ⲥ", miss: "ⲩ", wrong: ["ⲟ", "ⲓ"],
-    abbr: '<span class="cop ov">Ⲓⲏⲥ</span>', mean: "يسوع" },
-  { full: "Ⲡⲓⲭⲣⲓⲥⲧⲟⲥ", gap: "Ⲡⲓⲭⲣ....ⲥⲧⲟⲥ", miss: "ⲓ", wrong: ["ⲉ", "ⲏ"],
-    abbr: '<span class="cop">Ⲡ</span><span class="cop ov">ⲭⲥ</span>', mean: "المسيح" },
-  { full: "Ϭⲟⲓⲥ", gap: "Ϭ....ⲓⲥ", miss: "ⲟ", wrong: ["ⲁ", "ⲩ"],
-    abbr: '<span class="cop ov">ⲟⲥ</span>', mean: "رب/سيد" },
-  { full: "Ⲥⲱⲧⲏⲣ", gap: "Ⲥⲱⲧ....ⲣ", miss: "ⲏ", wrong: ["ⲓ", "ⲉ"],
-    abbr: '<span class="cop">Ⲥ</span><span class="cop ov">ⲱⲣ</span>', mean: "مخلص" }
+  { full: "E;ouab", gap: "E;....ab", miss: "ou", wrong: ["eu", "oi"],
+    abbr: '<span class="cop ov">e;u</span>', mean: "القدوس" },
+  { full: "Vnou}", gap: "Vnou....", miss: "}", wrong: ["t", "i"],
+    abbr: '<span class="cop ov">V}</span>', mean: "الله" },
+  { full: "Pneuma", gap: "Pn....ma", miss: "eu", wrong: ["ou", "ei"],
+    abbr: '<span class="cop">P</span><span class="cop ov">na</span>', mean: "روح" },
+  { full: "Allylouia",
+    abbr: '<span class="cop ov">Al</span>', mean: "هلليلويا" },
+  { full: "Iycouc", gap: "Iyco....c", miss: "u", wrong: ["o", "i"],
+    abbr: '<span class="cop ov">Iyc</span>', mean: "يسوع" },
+  { full: "Pi,rictoc", gap: "Pi,r....ctoc", miss: "i", wrong: ["e", "y"],
+    abbr: '<span class="cop">P</span><span class="cop ov">,c</span>', mean: "المسيح" },
+  { full: "[oic", gap: "[....ic", miss: "o", wrong: ["a", "u"],
+    abbr: '<span class="cop ov">oc</span>', mean: "رب/سيد" },
+  { full: "Cwtyr", gap: "Cwt....r", miss: "y", wrong: ["i", "e"],
+    abbr: '<span class="cop">C</span><span class="cop ov">wr</span>', mean: "مخلص" }
 ];
 
 const cop = t => '<span class="cop">' + t + "</span>";
