@@ -10,21 +10,43 @@
 </head>
 <body>
 <a href="index.html">← Home</a>
-<h1>Curriculum</h1>
-<div id="nav"></div>
-<div id="lesson"></div>
+<div id="view"></div>
 <script>
-const nav = document.getElementById("nav");
-const box = document.getElementById("lesson");
+const box = document.getElementById("view");
 
 function render() {
-  let i = (parseInt(location.hash.slice(1)) || 1) - 1;
-  if (i < 0 || i >= CURRICULUM.length) i = 0;
-  const les = CURRICULUM[i];
-  nav.innerHTML = CURRICULUM.map((l, k) =>
-    '<a class="pill ' + (k === i ? "active" : "") + '" href="#' + (k + 1) + '">' + (k + 1) + '</a>').join("");
+  const p = location.hash.slice(1).split("-");
+  const lv = parseInt(p[0]) - 1, ls = parseInt(p[1]) - 1;
+  if (!(lv >= 0 && lv < CURRICULUM.length)) return showLevels();
+  if (!(ls >= 0 && ls < CURRICULUM[lv].lessons.length)) return showLessons(lv);
+  showLesson(lv, ls);
+}
 
-  let h = "<h2>" + les.title + "</h2><div>" + les.content + "</div><h3>Exercises</h3><p id='score'></p>";
+function showLevels() {
+  let h = "<h1>Curriculum</h1>";
+  CURRICULUM.forEach((l, i) => {
+    const n = l.lessons.length;
+    h += n
+      ? '<a class="big" href="#' + (i + 1) + '"><b>' + l.title + "</b><br>" + n + (n > 1 ? " lessons" : " lesson") + "</a>"
+      : '<div class="big off"><b>' + l.title + "</b><br>Coming soon</div>";
+  });
+  box.innerHTML = h;
+}
+
+function showLessons(lv) {
+  const L = CURRICULUM[lv];
+  let h = '<p><a href="#">← All levels</a></p><h1>' + L.title + "</h1>";
+  L.lessons.forEach((les, k) => {
+    h += '<a class="big" href="#' + (lv + 1) + "-" + (k + 1) + '">' + les.title + "</a>";
+  });
+  box.innerHTML = h;
+}
+
+function showLesson(lv, ls) {
+  const L = CURRICULUM[lv];
+  const les = L.lessons[ls];
+  let h = '<p><a href="#' + (lv + 1) + '">← ' + L.title + "</a></p>";
+  h += "<h2>" + les.title + "</h2><div>" + les.content + "</div><h3>Exercises</h3><p id='score'></p>";
   les.exercises.forEach((e, n) => {
     h += '<div class="ex" data-n="' + n + '"><p>' + (n + 1) + ". " + e.q + "</p>";
     if (e.type === "mc") {
@@ -34,7 +56,9 @@ function render() {
     }
     h += '<p class="fb"></p></div>';
   });
-  if (i < CURRICULUM.length - 1) h += '<p><a class="pill" href="#' + (i + 2) + '">Next lesson →</a></p>';
+  h += ls < L.lessons.length - 1
+    ? '<p><a class="pill" href="#' + (lv + 1) + "-" + (ls + 2) + '">Next lesson →</a></p>'
+    : '<p><a class="pill" href="#' + (lv + 1) + '">Back to ' + L.title + "</a></p>";
   box.innerHTML = h;
   applyCop(box);
 
@@ -71,6 +95,7 @@ function render() {
     }
   });
 }
+
 window.onhashchange = render;
 render();
 </script>
