@@ -1,20 +1,20 @@
 const W2 = [
   { full: "E;ouab", gap: "E;....ab", miss: "ou", wrong: ["eu", "oi"],
-    abbr: '<span class="cop ov">e;u</span>', mean: "القدوس" },
+    abbr: '<span class="cop ov">=e=;=u</span>', mean: "القدوس" },
   { full: "Vnou}", gap: "Vnou....", miss: "}", wrong: ["t", "i"],
-    abbr: '<span class="cop ov">V}</span>', mean: "الله" },
+    abbr: '<span class="cop ov">V]</span>', mean: "الله" },
   { full: "Pneuma", gap: "Pn....ma", miss: "eu", wrong: ["ou", "ei"],
-    abbr: '<span class="cop">P</span><span class="cop ov">na</span>', mean: "روح" },
+    abbr: '<span class="cop">P</span><span class="cop ov">=n=a</span>', mean: "روح" },
   { full: "Allylouia",
-    abbr: '<span class="cop ov">Al</span>', mean: "هلليلويا" },
+    abbr: '<span class="cop ov">=a=l</span>', mean: "هلليلويا" },
   { full: "Iycouc", gap: "Iyco....c", miss: "u", wrong: ["o", "i"],
-    abbr: '<span class="cop ov">Iyc</span>', mean: "يسوع" },
+    abbr: '<span class="cop ov">I=y=c</span>', mean: "يسوع" },
   { full: "Pi,rictoc", gap: "Pi,r....ctoc", miss: "i", wrong: ["e", "y"],
-    abbr: '<span class="cop">P</span><span class="cop ov">,c</span>', mean: "المسيح" },
+    abbr: '<span class="cop">P</span><span class="cop ov">=,=c</span>', mean: "المسيح" },
   { full: "[oic", gap: "[....ic", miss: "o", wrong: ["a", "u"],
-    abbr: '<span class="cop ov">oc</span>', mean: "رب/سيد" },
+    abbr: '<span class="cop ov">=[=c</span>', mean: "رب/سيد" },
   { full: "Cwtyr", gap: "Cwt....r", miss: "y", wrong: ["i", "e"],
-    abbr: '<span class="cop">C</span><span class="cop ov">wr</span>', mean: "مخلص" }
+    abbr: '<span class="cop">C</span><span class="cop ov">=w=r</span>', mean: "مخلص" }
 ];
 
 const cop = t => '<span class="cop">' + t + "</span>";
