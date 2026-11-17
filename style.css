@@ -1,0 +1,14 @@
+@font-face { font-family: 'Avva'; src: url('CS-Avva-Shenouda.ttf') format('truetype'); font-display: swap; }
+body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 16px; line-height: 1.5; }
+.avva { font-family: 'Avva', serif; font-size: 1.5em; }
+.big { display: block; border: 1px solid #ccc; border-radius: 10px; padding: 14px; margin: 10px 0; text-decoration: none; color: inherit; font-size: 1.05rem; }
+.big.off { opacity: .5; }
+.pill { display: inline-block; padding: 6px 12px; border: 1px solid #999; border-radius: 8px; margin: 3px; text-decoration: none; color: inherit; }
+.pill.active { background: #333; color: #fff; }
+.opt { display: block; width: 100%; text-align: left; padding: 10px; margin: 6px 0; border: 1px solid #999; border-radius: 8px; background: #f5f5f5; font-size: 1rem; }
+.opt.good { background: #c8e6c9; }
+.opt.bad { background: #ffcdd2; }
+.ex { border-top: 1px solid #ddd; padding-top: 8px; margin-top: 12px; }
+.ans { padding: 8px; font-size: 1rem; border: 1px solid #999; border-radius: 8px; margin-right: 6px; }
+.chk { padding: 8px 12px; border-radius: 8px; border: 1px solid #999; background: #f5f5f5; }
+#score { font-weight: bold; }
